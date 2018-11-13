@@ -60,6 +60,26 @@ module.exports.uploadProfile=function(req, res) {
    });   
 }
 
+module.exports.findProfiles=(req,res)=> {
+    console.log(")@@@@@@@@@students@@@@@@@@@@@@@@@"); 
+    console.log(")@@@@@@@@@students@@@@@@@@@@@@@@@"); 
+    var sstring=req.query.search;
+    //var students = [];    
+    ProfileEntity.find({
+        $or: [
+          { 'name': { $regex: '.*' + sstring + '.*' }},
+          { 'email': { $regex: '.*' + sstring + '.*' }}
+        ]
+      }, function(err, data) {
+         console.log(err); 
+         if(!err) {
+            console.log(data); 
+            res.status(200).json(data);
+         }
+         
+      });
+}
+
 module.exports.authUser=(req,res)=> {
     //var login={username:"jack",password:"jill"};
     var data=req.body; 
