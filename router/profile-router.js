@@ -1,16 +1,13 @@
 
 var ProfileController=require('../controller/profile-controller')
-module.exports=function(app){
+module.exports=function(uriMapping){
 
     //Mapping for add profile
-    app.post("/profile-upload",ProfileController.uploadProfile);
-
-    app.get("/profiles",ProfileController.showProfiles);
-
-    app.get("/image-loader",ProfileController.findImageById);
-
-    app.get("/delete-profile",ProfileController.deleteProfileById);
-
-    
+    uriMapping.post("/profiles",ProfileController.uploadProfile);
+    uriMapping.get("/profiles",ProfileController.showProfiles);
+    uriMapping.get("/profiles/image/:mid",ProfileController.findImageById);
+    uriMapping.delete("/profiles/:mid",ProfileController.deleteProfileById);
+    uriMapping.post("/login",ProfileController.authUser);
+        
     
 };

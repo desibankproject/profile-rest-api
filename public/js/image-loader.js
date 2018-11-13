@@ -24,7 +24,7 @@ function deleteRow(sno) {
 			}
 			$("#appmessage").html(data.message);
 		});*/
-			$.ajax({url:"delete-profile?sno="+sno, type: 'GET',success:function(data) {
+			$.ajax({url:"v3/profiles/"+sno, type:'DELETE',success:function(data) {
 				if(data.status=="success"){
 					$("#rowdata"+sno).hide();
 				}
@@ -83,7 +83,7 @@ function readURL(input) {
 					
 					var jsonText=JSON.stringify(profile);
 					
-					$.ajax({url:"add-profile",contentType: "application/json; charset=utf-8", dataType: "json", type: 'POST',data:jsonText,success:function(response) {  
+					$.ajax({url:"v3/profils",contentType: "application/json; charset=utf-8", dataType: "json", type: 'POST',data:jsonText,success:function(response) {  
 							if(response.status=="success"){
 								$("#appmessage").html(response.message);
 								$("#addStudentModal").modal("hide");

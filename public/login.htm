@@ -20,12 +20,12 @@
             var jsonText=JSON.stringify(pdata);
             //{  "username" : "jack",  "password" : "dddd"}
 	        	//using function constructor
-            $.ajax({url:"/login",contentType: "application/json; charset=utf-8", dataType: "json", 
+            $.ajax({url:"/v3/login",contentType: "application/json; charset=utf-8", dataType: "json", 
                      type: 'POST',data:jsonText,success:function(response) {  
                
                   console.log(response); //{  "status": "fail","message": "Sorry !, Username and password are not correct!"}
                 if(response.status=="success"){
-                    window.location.href="dstudent.htm";
+                    window.location.href="file-upload.htm";
                 }else{
                   $("#emessage").html(response.message);
                 }

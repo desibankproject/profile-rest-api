@@ -51,7 +51,7 @@ module.exports.uploadProfile=function(req, res) {
   }
 
 
-  module.exports.showProfiles=(req,res)=> {
+ module.exports.showProfiles=(req,res)=> {
     console.log(")@@@@@@@@@students@@@@@@@@@@@@@@@"); 
    //var students = [];    
    ProfileEntity.find({},function(err,data){
@@ -60,10 +60,34 @@ module.exports.uploadProfile=function(req, res) {
    });   
 }
 
+module.exports.authUser=(req,res)=> {
+    //var login={username:"jack",password:"jill"};
+    var data=req.body; 
+   ProfileEntity.find({username:data.username,password:data.password})
+   .then(profile => {
+       console.log(profile);//profile=[];
+       if(profile.length>0) {
+           console.log("+_+__data is coming from the database!!!!!!!!!!!!!");
+           console.log(profile);
+           return res.status(200).send({status:"success",message:"username and password are correct!."});
+       }else{
+            console.log("#)#)#)#)User does not exist#)#)#)#)");   
+            console.log(profile);
+            return res.status(200).send({status:"fail",message:"username and password are not correct!."});
+       }
+   }).catch(err => {
+       console.log("#)#)#)#ERROR)#)#)#");
+       console.log(err);
+       return res.status(500).send({status:"fail",message:"Sorry! there is some problem to process the request."});
+   });
+
+}
+
    //Here we are passing data as query string
    //?sno=re3030303
    module.exports.findImageById=function(req,res){
-        var _id=req.query.id;
+        //var _id=req.query.id;
+        var _id=req.params.mid;
         console.log("nagendra = "+_id);
         if(_id==undefined){
             return;
@@ -91,12 +115,12 @@ module.exports.uploadProfile=function(req, res) {
   }
 
 
-
+  // uriMapping.delete("/profiles/{mid}",ProfileController.deleteProfileById);
   module.exports.deleteProfileById=function(req,res){
       // var _id=req.query.sno;
        //req.params.noteId
        console.log("_@)@)@)@)@)DELETING THE PROFILE WITH PROFILE ID  ="+req.query.id+" @)@)@)@)@)@)@)@)");
-       ProfileEntity.findByIdAndRemove(req.query.id)
+       ProfileEntity.findByIdAndRemove(req.params.mid)
                     .then(profile => {
                         if(!profile) {
                             return res.status(404).send({

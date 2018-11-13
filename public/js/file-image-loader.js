@@ -24,7 +24,7 @@ function deleteRow(id) {
 			}
 			$("#appmessage").html(data.message);
 		});*/
-			$.ajax({url:"delete-profile?id="+id, type: 'GET',success:function(data) {
+			$.ajax({url:"v3/profiles/"+id, type: 'GET',success:function(data) {
 				if(data.status=="success"){
 					$("#rowdata"+id).hide();
 				}
@@ -55,7 +55,7 @@ function readURL(input) {
 				$("#load").click(function(){
 					//fetching JSON data from txt file
 					var  url="profiles"
-					$.getJSON("profiles",function(data){ //data will hold json data as a JavaScript object
+					$.getJSON("v3/profiles",function(data){ //data will hold json data as a JavaScript object
 						showData(data);
 					});
 
@@ -78,7 +78,7 @@ function readURL(input) {
                         	//contentType: false, ->> to send image as attachment in AJAX
 		                   var myForm = new FormData(document.getElementById('imageUploadAjaxForm'));
 		                   //var myForm = $("#imagePopupFormId").serialize();
-		                   $.ajax({url : "profile-upload",
+		                   $.ajax({url : "v3/profiles",
 		                             dataType: 'json',
 		                             data : myForm,
 		                             processData: false,

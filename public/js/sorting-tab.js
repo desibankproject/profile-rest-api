@@ -9,7 +9,7 @@ function showData(data){
 		tbcontents=tbcontents+'<td>'+data[x].email+'</td>';
 		tbcontents=tbcontents+'<td>'+data[x].mobile+'</td>';
 		tbcontents=tbcontents+'<td>'+data[x].gender+'</td>';
-		tbcontents=tbcontents+'<td><img class="zoom"  id="pimage'+data[x]._id+'" src="image-loader?id='+data[x]._id+'" style="height:120px;"/>';
+		tbcontents=tbcontents+'<td><img class="zoom"  id="pimage'+data[x]._id+'" src="v3/profiles/image/'+data[x]._id+'" style="height:120px;"/>';
 		tbcontents=tbcontents+'<a href="javascript:deleteRow(\''+data[x]._id+'\');"><img src="delete.png" style="height:40px;"/></a>';
 		tbcontents=tbcontents+'<a href="javascript:editRow(\''+data[x]._id+'\');"><img src="edit.png" style="height:40px;"/></a>';
 		tbcontents=tbcontents+'</td></tr>';
