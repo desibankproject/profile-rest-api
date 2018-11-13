@@ -25,6 +25,10 @@ app.use(fileUpload());
 //Mapping static resource
 app.use('/',express.static(__dirname + '/public'));
 
+
+//Versioning + token validation will not work for app means below mapping 
+require('./router/auth-mapping')(app);
+
 //profile-mapping file contains function definition 
 var endPoint = express.Router();
 //Filter 
@@ -43,6 +47,12 @@ endPoint.use(function (err, req, res, next) {
     res.status(err.statusCode || 500).json(data);
 });
 require('./utils/mongodb-utils')();
+
+//This is acting as middleware
+require('./security/validate-token')(endPoint);
+
+
+
 //Calling the router function
 require('./router/profile-router')(endPoint);
 //here endpoint will be prefix with  v1

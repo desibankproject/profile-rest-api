@@ -55,9 +55,21 @@ function readURL(input) {
 				$("#load").click(function(){
 					//fetching JSON data from txt file
 					var  url="profiles"
-					$.getJSON("v3/profiles",function(data){ //data will hold json data as a JavaScript object
-						showData(data);
-					});
+					var authToken=localStorage.getItem("authToken");
+					alert("authToken = "+authToken);
+					$.ajax({
+						url: "v3/profiles",
+						type: "GET",
+						beforeSend: function(xhr){xhr.setRequestHeader('user-access-token', authToken);},
+						success: function(data) {
+							console.log(data);
+							showData(data);
+						}
+					 });
+
+					//$.getJSON("v3/profiles",function(data){ //data will hold json data as a JavaScript object
+						//showData(data);
+					//});
 
 				});
 				
